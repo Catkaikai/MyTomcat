@@ -14,7 +14,7 @@ public class MyRequest {
 
 	
 	public MyRequest(InputStream inputStream) throws IOException {
-		System.out.println("Request被创建");
+		//System.out.println("Request被创建");
 		String httpRequest = "";
 		byte[] httpRequsestbytes = new byte[1024];
 		int length = 0;
@@ -36,6 +36,7 @@ public class MyRequest {
 
 		// 提取相关字符
 		String httpHead = httpRequest.split("\n")[0];
+		//System.out.println(httpHead);
 		this.method=httpHead.split(" ")[0];
 			this.url=httpHead.split(" ")[1];
 	}

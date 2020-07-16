@@ -15,7 +15,7 @@ public class MyResponse {
 	}
 	
 	public void write(String content) throws IOException {
-		//响应头例子
+		//响应报文样例
 //		HTTP/1.1 200 
 //		Content-Type: application/json
 //		Transfer-Encoding: chunked
@@ -24,9 +24,12 @@ public class MyResponse {
 //		Connection: keep-alive
 		//设置响应头编码
 		StringBuffer httpResponse = new StringBuffer();
-		httpResponse.append("HTTP/2.0 200 OK\n")
-					.append("Content-Type: application/html")
+		httpResponse.append("HTTP/1.1 200 OK")
+					.append("\n")
+					.append("Content-Type: text/html")
+					.append("\n")
 					.append("\r\n")
+					.append("<!DOCTYPE html>")
 					.append("<html><body>")
 					.append(content)
 					.append("</boy></html>");

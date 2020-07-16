@@ -55,7 +55,16 @@ public class MyTomcat {
 				InputStream inputStream = socket.getInputStream();
 				MyResponse myResponse = new MyResponse(outputStream);
 				MyRequest myRequest = new MyRequest(inputStream);
-				dispatch(myRequest, myResponse);
+				
+				/**
+				 * 分发前做判断，看所请求的url是否在ServerletMap里面
+				 * to do :封装该判断逻辑为方法调用
+				 */
+				if(urlServerletMap.containsKey(myRequest.getUrl())) {
+					dispatch(myRequest, myResponse);
+				}else {
+					continue;
+				}
 				System.out.println("5.请求已经被分发");
 				socket.close();
 				System.out.println("--------------结束分发流程-----------------");
