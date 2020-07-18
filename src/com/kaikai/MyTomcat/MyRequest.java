@@ -38,7 +38,7 @@ public class MyRequest {
 		String httpHead = httpRequest.split("\n")[0];
 		//System.out.println(httpHead);
 		this.method=httpHead.split(" ")[0];
-			this.url=httpHead.split(" ")[1];
+		this.url=httpHead.split(" ")[1];
 	}
 	//getter·½·¨
 
@@ -56,6 +56,11 @@ public class MyRequest {
 
 	public void setMethod(String method) {
 		this.method = method;
+	}
+
+	@Override
+	public String toString() {
+		return "MyRequest [url=" + url + ", method=" + method + "]";
 	}
 	
 	
