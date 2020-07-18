@@ -1,6 +1,6 @@
 ### 动手DIY一个简陋的Tomcat :wink:
 
-`java socket` `多线程/线程池` `I/O流` `HTTP协议`
+####  标签： `java socket` `多线程/线程池` `I/O流` `HTTP协议`
 
 #### 前言
 
