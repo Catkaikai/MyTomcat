@@ -8,10 +8,11 @@ package com.kaikai.MyTomcat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kaikai.MyTomcat.utils.ScanPackageUtil;
+
 public class ServletMappingConfig {
 	public static List<ServletMapping> servletMappinglist = new ArrayList<>();
 	
-	//
 	static {
 		servletMappinglist
 		.add(new ServletMapping("test1", "/t1", 
@@ -20,6 +21,16 @@ public class ServletMappingConfig {
 		.add(new ServletMapping("test2", "/t2", 
 				"com.kaikai.MyTomcat.testServlet.TestTWOservlet"));
 		
+	}
+	//通过读取修改配置文件得到servlet类的名字 请求url 路径
+	
+	//通过扫描注解得到servlet类的名字 请求url 路径
+	static {
+		try {
+			ScanPackageUtil.setServletMappingByAnnotation(servletMappinglist);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

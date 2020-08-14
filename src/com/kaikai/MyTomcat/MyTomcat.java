@@ -124,9 +124,9 @@ public class MyTomcat {
 		try {
 			// 得到类
 			Class<MyServlet> myservletClass = (Class<MyServlet>) Class.forName(clazz);
-			// 创建对象
+			// 创建Myservlet子类对象
 			MyServlet myServlet = myservletClass.newInstance();
-			// 父类MyServlet的service方法会帮子类区分请求方法
+			// 父类MyServlet的service方法会帮子类区分请求方式是post还是get
 			myServlet.service(myRequest, myResponse);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

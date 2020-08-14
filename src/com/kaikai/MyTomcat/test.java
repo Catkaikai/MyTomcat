@@ -1,14 +1,19 @@
 package com.kaikai.MyTomcat;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.swing.text.AbstractDocument.BranchElement;
 
+import com.kaikai.MyTomcat.MyAnnotation.MyWebServlet;
 import com.kaikai.MyTomcat.MyThread.testThread;
+import com.kaikai.MyTomcat.utils.ScanPackageUtil;
 
 /**
  * @author 作者 kaikai:
@@ -16,8 +21,8 @@ import com.kaikai.MyTomcat.MyThread.testThread;
  * @Description 类说明
  */
 public class test {
-	public static void main(String[] args) throws IOException {
-		test2();
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+		test3();
 	}
 
 	public void test1() {
@@ -90,9 +95,9 @@ public class test {
 		while (true) {
 			System.out.println("请求" + i++);
 			if (i % 10 == 0) {
-				//m++;
-				//host = "192.168.98." + m;
-				
+				// m++;
+				// host = "192.168.98." + m;
+
 			}
 			if (i <= 100) {
 				testThread thread = new testThread(host);
@@ -102,4 +107,29 @@ public class test {
 			}
 		}
 	}
+
+	/**
+	 * 测试扫描功能
+	 * 
+	 * @throws ClassNotFoundException
+	 */
+	public static void test3() throws ClassNotFoundException {
+		List<String> fileList = new ArrayList<>();
+		File baseFile = new File("src");
+		ScanPackageUtil.getSubFileNameList(baseFile, fileList);
+		System.out.println(fileList);
+		for (String name : fileList) {
+			if (ScanPackageUtil.isChildClass(name, MyServlet.class)) {
+				Class<?> c = Class.forName(name);
+				Class<?> myservlet = Class.forName(name);
+				if (myservlet.isAnnotationPresent(MyWebServlet.class)) { 
+					System.out.println(name);
+					//myservlet.getAnnotation();
+					MyWebServlet m = myservlet.getAnnotation(MyWebServlet.class);
+					System.out.println("注解"+m.url()+m.name());
+				}
+			}
+		}
+	}
+
 }

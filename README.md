@@ -1,6 +1,6 @@
 ### 动手DIY一个简陋的Tomcat :wink:
 
-####  标签： `java socket` `多线程/线程池` `I/O流` `HTTP协议`
+####  知识点： `java socket` `多线程/线程池` `I/O流` `HTTP协议` `反射` `注解`
 
 #### 前言
 
@@ -36,13 +36,16 @@ Tomcat既然是基于Socket，是基于BIO or NIO or AIO 呢? 在本案例中采
 ```java
 //默认端口为8080
 new MyTomcat(8080).start() 
+//支持链式调用
+new MyTomcat().setPort(8089).setPoolsize(5).start();
 ```
 
 ##### 4.跑起来后即可在浏览器地址栏发送请求
 
 ```
-http://localhost:8089/t1
+http://localhost:8089/t1 
 http://localhost:8089/t2
+http://localhost:8089/t3 //采用注解的形式
 ```
 
 #### 二、项目结构
@@ -52,27 +55,41 @@ http://localhost:8089/t2
 子包testServlet下的是两个用来测试的Myservlet的子类
 ```
 
-#### 三、已知bug
+#### 三、贡献代码的步骤
 
-##### 1.暂无，欢迎提issue
+1. 在Github上fork项目到自己的repo
+2. 把fork过去的项目也就是你的项目clone到你的本地
+3. 修改代码（当前仅master一个分支）
+4. commit后push到自己的远程仓库（master分支）
+5. 登录Github在你首页可以看到一个 pull request 按钮，点击它，填写一些说明信息，然后提交即可。
+6. 等待作者合并
 
-```
+#### 四、提供bug反馈或建议
 
-```
+##### 欢迎提issue（建议提供bug复现的方式以及涉及的代码块）
 
-#### 四、To Do
+- [Github issues](https://github.com/Catkaikai/MyTomcat/issues)
 
-##### 1.实现注解功能
+#### 五、To Do
 
-##### 2.静态资源的访问
+- [x] ##### 实现注解功能
 
-##### 3.支持更多的请求方式
+- [ ] ##### 静态资源的访问
 
-##### 4.优化使用方式（修改配置文件而无需修改源码）`工厂方法模式`
 
-##### ......
+- [ ] ##### 支持更多的请求方式
 
-#### 五、知识点
+
+- [ ] ##### 优化使用方式（修改配置文件而无需修改源码）`工厂方法模式`
+
+- [x] ##### 扫描其他Jar包下的MyServlet子类
+
+- [ ] ##### 提供maven模块以及jar包的方式使用
+
+- [ ] ##### ......
+
+
+#### 六、知识点
 
 ##### 1.I/O流
 
@@ -96,11 +113,11 @@ AIO （ Asynchronous I/O）：异步非阻塞I/O模型
 
 ##### 3.HTTP协议
 
-##### 报文格式
+###### 报文格式
 
 [报文格式参考](https://baijiahao.baidu.com/s?id=1662842929861521073&wfr=spider&for=pc)
 
-##### 版本演化
+###### 版本演化
 
 ```javascript
 Http是一个应用层协议，基于TCP协议（传输层）之上，规定WWW服务器
@@ -133,7 +150,7 @@ HTTP2.0是SPDY（谷歌公司研发的https的一种协议）的升级版
 	4.HTTP/2 允许服务器未经请求，主动向客户端发送资源，即服务器推送（server push）
 ```
 
-##### 关键
+###### 关键
 
 ```
 http1.0和http1.1的区别
