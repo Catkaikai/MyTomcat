@@ -1,4 +1,4 @@
-package com.kaikai.MyTomcat;
+package com.kaikai.MyTomcat.config;
 /** 
 * @author 作者 kaikai: 
 * @version 创建时间：2020年7月15日 下午4:37:27 
@@ -8,6 +8,7 @@ package com.kaikai.MyTomcat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kaikai.MyTomcat.pack.ServletMapping;
 import com.kaikai.MyTomcat.utils.ScanPackageUtil;
 
 public class ServletMappingConfig {

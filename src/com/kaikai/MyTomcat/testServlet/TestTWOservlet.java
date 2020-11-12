@@ -2,9 +2,9 @@ package com.kaikai.MyTomcat.testServlet;
 
 import java.io.IOException;
 
-import com.kaikai.MyTomcat.MyRequest;
-import com.kaikai.MyTomcat.MyResponse;
-import com.kaikai.MyTomcat.MyServlet;
+import com.kaikai.MyTomcat.pack.MyRequest;
+import com.kaikai.MyTomcat.pack.MyResponse;
+import com.kaikai.MyTomcat.pack.MyServlet;
 
 /** 
 * @author зїеп kaikai: 

@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import com.kaikai.MyTomcat.MyServlet;
-import com.kaikai.MyTomcat.ServletMapping;
 import com.kaikai.MyTomcat.MyAnnotation.MyWebServlet;
+import com.kaikai.MyTomcat.pack.MyServlet;
+import com.kaikai.MyTomcat.pack.ServletMapping;
 
 /** 
 * @author зїеп kaikai: 
