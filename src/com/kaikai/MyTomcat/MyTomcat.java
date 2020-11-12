@@ -8,26 +8,37 @@ import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.sound.sampled.Port;
+
 import com.kaikai.MyTomcat.config.ServletMappingConfig;
+import com.kaikai.MyTomcat.config.propertiesConfig;
 import com.kaikai.MyTomcat.pack.MyRequest;
 import com.kaikai.MyTomcat.pack.MyResponse;
 import com.kaikai.MyTomcat.pack.MyServlet;
+import com.kaikai.MyTomcat.pack.MySrcServlet;
 import com.kaikai.MyTomcat.pack.ServletMapping;
 
 /** 
- * @author ×÷Õß kaikai: 
- * @version ´´½¨Ê±¼ä£º2020Äê7ÔÂ15ÈÕ ÏÂÎç4:53:48 
- * @Description ÀàËµÃ÷ 
+ * @author ä½œè€… kaikai: 
+ * @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´7æœˆ15æ—¥ ä¸‹åˆ4:53:48 
+ * @Description ç±»è¯´æ˜ 
  */
 public class MyTomcat {
+	/**
+	 * é»˜è®¤ç«¯å£8080
+	 */
 	private int port = 8080;
-	private int poolsize = 0;
-	public static Map<String, String> urlServerletMap = new HashMap<>();
+	public static HashMap<String, String> urlServerletMap = new HashMap<>();
+	public static HashMap<String, MySrcServlet> urlSrcServerletMap = new HashMap<>();
+	/**
+	 * mainæ–¹æ³•
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		new MyTomcat().setPort(8089).start();
+		new MyTomcat().setPort(propertiesConfig.port).start();
 	}
 	/**
-	 * Ò»¼üÆô¶¯
+	 * ä¸€é”®å¯åŠ¨
 	 */
 	public void start() {
 		initServerletMapping();
@@ -35,24 +46,27 @@ public class MyTomcat {
 	}
 
 	/**
-	 * ¼ÓÔØËùÓĞµÄServerletMappingµ½MyTomcatÀïµÄhashmapÀï
+	 * åŠ è½½æ‰€æœ‰çš„ServerletMappingåˆ°MyTomcaté‡Œçš„hashmapé‡Œ
 	 */
 	public void initServerletMapping() {
-		System.out.println("1.¶ÁÈ¡²¢³õÊ¼»¯ServerletMapping¼¯ºÏ");
+		System.out.println("1.è¯»å–å¹¶åˆå§‹åŒ–ServerletMappingé›†åˆ");
 		for (ServletMapping servletMapping : ServletMappingConfig.servletMappinglist) {
 			urlServerletMap.put(servletMapping.getUrl(), servletMapping.getClazz());
 		}
+		for (ServletMapping servletMapping : ServletMappingConfig.SrcservletMappinglist) {
+			urlSrcServerletMap.put(servletMapping.getUrl(), servletMapping.getMysrcservlet());
+		}
 	}
 	/**
-	 * ´´½¨socket²¢ÔËĞĞ·şÎñ
+	 * åˆ›å»ºsocketå¹¶è¿è¡ŒæœåŠ¡
 	 */
 	public void initProcess() {
 		ServerSocket serverSocket = null;
 		try {
 			serverSocket = new ServerSocket(port);
 			System.out.println("MyTomcat is start...");
-			System.out.println("2.ÒÔ¶Ë¿Ú´´½¨serverSocket");
-			// serverSocketÎ´¹Ø±ÕÔò¿ÉÒ»Ö±´´½¨socket
+			System.out.println("2.ä»¥ç«¯å£åˆ›å»ºserverSocket");
+			// serverSocketæœªå…³é—­åˆ™å¯ä¸€ç›´åˆ›å»ºsocket
 			Socket socket = null;
 			while (true) {
 				socket = serverSocket.accept();
@@ -61,16 +75,18 @@ public class MyTomcat {
 				MyResponse myResponse = new MyResponse(outputStream);
 				MyRequest myRequest = new MyRequest(inputStream);
 				/**
-				 * ·Ö·¢Ç°×öÅĞ¶Ï£¬¿´ËùÇëÇóµÄurlÊÇ·ñÔÚServerletMapÀïÃæ to do :·â×°¸ÃÅĞ¶ÏÂß¼­Îª·½·¨µ÷ÓÃ
+				 * åˆ†å‘å‰åšåˆ¤æ–­ï¼Œçœ‹æ‰€è¯·æ±‚çš„urlæ˜¯å¦åœ¨ServerletMapé‡Œé¢ to do :å°è£…è¯¥åˆ¤æ–­é€»è¾‘ä¸ºæ–¹æ³•è°ƒç”¨
 				 */
 				if (urlServerletMap.containsKey(myRequest.getUrl())) {
-					System.out.println("--------------¿ªÊ¼·Ö·¢Á÷³Ì-----------------");
+					//System.out.println("--------------å¼€å§‹åˆ†å‘æµç¨‹-----------------");
 					dispatch(myRequest, myResponse);
-					System.out.println("ÇëÇóÒÑ¾­±»·Ö·¢");
-					System.out.println("--------------½áÊø·Ö·¢Á÷³Ì-----------------");
-				} else {
+					//System.out.println("è¯·æ±‚å·²ç»è¢«åˆ†å‘");
+					//System.out.println("--------------ç»“æŸåˆ†å‘æµç¨‹-----------------");
+				} else if(urlSrcServerletMap.containsKey(myRequest.getUrl())){
+					urlSrcServerletMap.get(myRequest.getUrl()).service(myRequest, myResponse);
+				}else {
 					// System.out.println(myRequest);
-					//System.out.println("·ÇÏà¹ØÇëÇóÎ´²ÎÓë·Ö·¢");
+					//System.out.println("éç›¸å…³è¯·æ±‚æœªå‚ä¸åˆ†å‘");
 				}
 				socket.close();
 			}
@@ -87,22 +103,22 @@ public class MyTomcat {
 		}
 	}
 	/**
-	 * Í¨¹ıÇëÇó£¨request£©µÄurlµÃµ½serletÊµÏÖÀà¶ø·´Éä²¢·Ö·¢ÏìÓ¦£¨response£© Í¨¹ıurlµÄ²»Í¬¶ø´´½¨µÄ²»Í¬µÄ¶ÔÏó¶øÊµÏÖ·Ö·¢
+	 * é€šè¿‡è¯·æ±‚ï¼ˆrequestï¼‰çš„urlå¾—åˆ°serletå®ç°ç±»è€Œåå°„å¹¶åˆ†å‘å“åº”ï¼ˆresponseï¼‰ é€šè¿‡urlçš„ä¸åŒè€Œåˆ›å»ºçš„ä¸åŒçš„å¯¹è±¡è€Œå®ç°åˆ†å‘
 	 * @param myRequest
 	 * @param myResponse
 	 */
 	@SuppressWarnings("unchecked")
-	public synchronized static void dispatch(MyRequest myRequest, MyResponse myResponse) {
-		System.out.println("Í¨¹ı·´Éä´´½¨¶ÔÓ¦µÄMyServlet×ÓÀà¶ÔÏó");
-		// »ñÈ¡·´ÉäĞèÒªµÄÀàÂ·¾¶
+	public static void dispatch(MyRequest myRequest, MyResponse myResponse) {
+		System.out.println("é€šè¿‡åå°„åˆ›å»ºå¯¹åº”çš„MyServletå­ç±»å¯¹è±¡");
+		// è·å–åå°„éœ€è¦çš„ç±»è·¯å¾„
 		String clazz = urlServerletMap.get(myRequest.getUrl());
-		// ·´ÉäÍ¨¹ı·´Éä´´½¨ÇëÇóµÄMyServlet×ÓÀà
+		// åå°„é€šè¿‡åå°„åˆ›å»ºè¯·æ±‚çš„MyServletå­ç±»
 		try {
-			// µÃµ½Àà
+			// å¾—åˆ°ç±»
 			Class<MyServlet> myservletClass = (Class<MyServlet>) Class.forName(clazz);
-			// ´´½¨Myservlet×ÓÀà¶ÔÏó
+			// åˆ›å»ºMyservletå­ç±»å¯¹è±¡
 			MyServlet myServlet = myservletClass.newInstance();
-			// Í¨¹ıµ÷ÓÃ¸¸ÀàMyServletµÄservice·½·¨»á°ï×ÓÀà¾ö¶¨doGet»¹ÊÇdoPost
+			// é€šè¿‡è°ƒç”¨çˆ¶ç±»MyServletçš„serviceæ–¹æ³•ä¼šå¸®å­ç±»å†³å®šdoGetè¿˜æ˜¯doPost
 			myServlet.service(myRequest, myResponse);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -114,15 +130,15 @@ public class MyTomcat {
 	}
 
 	/**
-	 * ÎŞ²Î¹¹ÔìÆ÷
+	 * æ— å‚æ„é€ å™¨
 	 */
 	public MyTomcat() {
 
 	}
 
 	/**
-	 * Á´Ê½µ÷ÓÃÉèÖÃ¶Ë¿Ú²ÎÊı
-	 * @param port ÔËĞĞ¶Ë¿Ú(Ä¬ÈÏÎª8080)
+	 * é“¾å¼è°ƒç”¨è®¾ç½®ç«¯å£å‚æ•°
+	 * @param port è¿è¡Œç«¯å£(é»˜è®¤ä¸º8080)
 	 * @return
 	 */
 	public MyTomcat setPort(int port) {

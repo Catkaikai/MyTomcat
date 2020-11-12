@@ -12,9 +12,9 @@ import com.kaikai.MyTomcat.pack.MyServlet;
 import com.kaikai.MyTomcat.utils.ScanPackageUtil;
 
 /**
- * @author ×÷Õß kaikai:
- * @version ´´½¨Ê±¼ä£º2020Äê7ÔÂ15ÈÕ ÏÂÎç12:29:08
- * @Description ÀàËµÃ÷
+ * @author ä½œè€… kaikai:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´7æœˆ15æ—¥ ä¸‹åˆ12:29:08
+ * @Description ç±»è¯´æ˜
  */
 public class test {
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
@@ -27,7 +27,7 @@ public class test {
 		pool.execute(new Runnable() {
 			@Override
 			public void run() {
-				Thread.currentThread().setName("Ïß³Ì1");
+				Thread.currentThread().setName("çº¿ç¨‹1");
 				// TODO Auto-generated method stub
 				for (int i = 1; i <= 20; i++) {
 					if (i == 5) {
@@ -38,39 +38,39 @@ public class test {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						System.out.println(Thread.currentThread().getName() + "ºó:" + i);
+						System.out.println(Thread.currentThread().getName() + "å:" + i);
 					} else
 						System.out.println(Thread.currentThread().getName() + ":" + i);
 				}
-				System.out.println("Ïß³Ì1ÒÑ½áÊø");
+				System.out.println("çº¿ç¨‹1å·²ç»“æŸ");
 			}
 		});
 		pool.execute(new Runnable() {
 			@Override
 			public void run() {
-				Thread.currentThread().setName("Ïß³Ì2");
+				Thread.currentThread().setName("çº¿ç¨‹2");
 				// TODO Auto-generated method stub
 				for (int i = 1; i <= 10; i++) {
 					Thread.currentThread().interrupt();
 				}
-				System.out.println("Ïß³Ì2ÒÑ½áÊø");
+				System.out.println("çº¿ç¨‹2å·²ç»“æŸ");
 			}
 		});
 		pool.execute(new Runnable() {
 			@Override
 			public void run() {
-				Thread.currentThread().setName("Ïß³Ì3");
+				Thread.currentThread().setName("çº¿ç¨‹3");
 				// TODO Auto-generated method stub
 				for (int i = 1; i <= 10; i++) {
 					System.out.println(Thread.currentThread().getName() + ":" + i);
 				}
-				System.out.println("Ïß³Ì3ÒÑ½áÊø");
+				System.out.println("çº¿ç¨‹3å·²ç»“æŸ");
 			}
 		});
 	}
 
 	/**
-	 * ²âÊÔÉ¨Ãè¹¦ÄÜ
+	 * æµ‹è¯•æ‰«æåŠŸèƒ½
 	 * 
 	 * @throws ClassNotFoundException
 	 */
@@ -87,7 +87,7 @@ public class test {
 					System.out.println(name);
 					//myservlet.getAnnotation();
 					MyWebServlet m = myservlet.getAnnotation(MyWebServlet.class);
-					System.out.println("×¢½â"+m.url()+m.name());
+					System.out.println("æ³¨è§£"+m.url()+m.name());
 				}
 			}
 		}

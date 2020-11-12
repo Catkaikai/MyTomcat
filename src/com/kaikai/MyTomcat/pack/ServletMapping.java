@@ -1,22 +1,32 @@
 package com.kaikai.MyTomcat.pack;
 /** 
-* @author ×÷Õß kaikai: 
-* @version ´´½¨Ê±¼ä£º2020Äê7ÔÂ15ÈÕ ÏÂÎç3:44:01 
-* @Description ÀàËµÃ÷  serletmappingÊµÌåÀà ·Ö·¢ÇëÇóĞèÒªµÄĞÅÏ¢µÄ·â×°
+* @author ä½œè€… kaikai: 
+* @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´7æœˆ15æ—¥ ä¸‹åˆ3:44:01 
+* @Description ç±»è¯´æ˜  serletmappingå®ä½“ç±» åˆ†å‘è¯·æ±‚éœ€è¦çš„ä¿¡æ¯çš„å°è£…
 */
 public class ServletMapping {
 	/**
-	 * servletµÄÃû×Ö
+	 * servletçš„åå­—
 	 */
 	private String servletName;
 	/**
-	 * ÔÚä¯ÀÀÆ÷µØÖ·×îºóµÄ·ÃÎÊurl ¼´ip:port/url
+	 * åœ¨æµè§ˆå™¨åœ°å€æœ€åçš„è®¿é—®url å³ip:port/url
 	 */
 	private String url;
 	/**
-	 * ¸ÃServletµÄÈ«ÏŞ¶¨ÃûÓÃÓÚ·´Éä
+	 * è¯¥Servletçš„å…¨é™å®šåç”¨äºåå°„
 	 */
 	private String clazz;
+	/**
+	 * é™æ€èµ„æºå¯¹è±¡
+	 */
+	private MySrcServlet mysrcservlet;
+	public MySrcServlet getMysrcservlet() {
+		return mysrcservlet;
+	}
+	public void setMysrcservlet(MySrcServlet mysrcservlet) {
+		this.mysrcservlet = mysrcservlet;
+	}
 	public String getServletName() {
 		return servletName;
 	}
@@ -37,9 +47,9 @@ public class ServletMapping {
 	}
 	/**
 	 * 
-	 * @param servletName servletµÄÃû×Ö ÆğÃèÊö×÷ÓÃ
-	 * @param url ÔÚä¯ÀÀÆ÷µØÖ·×îºóµÄ·ÃÎÊurl ¼´ip:port/url url×÷Îª·Ö·¢µÄ±êÊ¶  ÊÇMyTomcatÀïµÄmapÀïµÄkeyÖµ
-	 * @param clazz ¸ÃServletµÄÎ»ÖÃ ÓÃÓÚ·´Éä´´½¨¶ÔÏó ÊÇMyTomcatÀïµÄmapÀïµÄvalueÖµ
+	 * @param servletName servletçš„åå­— èµ·æè¿°ä½œç”¨
+	 * @param url åœ¨æµè§ˆå™¨åœ°å€æœ€åçš„è®¿é—®url å³ip:port/url urlä½œä¸ºåˆ†å‘çš„æ ‡è¯†  æ˜¯MyTomcaté‡Œçš„mapé‡Œçš„keyå€¼
+	 * @param clazz è¯¥Servletçš„ä½ç½® ç”¨äºåå°„åˆ›å»ºå¯¹è±¡ æ˜¯MyTomcaté‡Œçš„mapé‡Œçš„valueå€¼
 	 */
 	public ServletMapping(String servletName, String url, String clazz) {
 		super();
@@ -47,7 +57,12 @@ public class ServletMapping {
 		this.url = url;
 		this.clazz = clazz;
 	}
-	
+	public ServletMapping(String servletName, String url, MySrcServlet  mysrcservlet) {
+		super();
+		this.servletName = servletName;
+		this.url = url;
+		this.mysrcservlet=mysrcservlet;
+	}
 	
 	
 }

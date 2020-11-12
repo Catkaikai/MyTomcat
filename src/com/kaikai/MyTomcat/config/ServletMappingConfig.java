@@ -1,20 +1,22 @@
 package com.kaikai.MyTomcat.config;
 /** 
-* @author ×÷Õß kaikai: 
-* @version ´´½¨Ê±¼ä£º2020Äê7ÔÂ15ÈÕ ÏÂÎç4:37:27 
-* @Description ÀàËµÃ÷  ServletMappingµÄÅäÖÃÀà ÆäÊµÊÇÍ¨¹ı¸Ã¶ÔÏó½«ËùÓĞµÄ ServletMappingĞÅÏ¢±£´æÔÚlist¼¯ºÏÀï·½±ãÊ¹ÓÃ
+* @author ä½œè€… kaikai: 
+* @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´7æœˆ15æ—¥ ä¸‹åˆ4:37:27 
+* @Description ç±»è¯´æ˜  ServletMappingçš„é…ç½®ç±» å…¶å®æ˜¯é€šè¿‡è¯¥å¯¹è±¡å°†æ‰€æœ‰çš„ ServletMappingä¿¡æ¯ä¿å­˜åœ¨listé›†åˆé‡Œæ–¹ä¾¿ä½¿ç”¨
 */
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.kaikai.MyTomcat.pack.MySrcServlet;
 import com.kaikai.MyTomcat.pack.ServletMapping;
 import com.kaikai.MyTomcat.utils.ScanPackageUtil;
 
 public class ServletMappingConfig {
 	public static List<ServletMapping> servletMappinglist = new ArrayList<>();
+	public static List<ServletMapping> SrcservletMappinglist = new ArrayList<>();
 	
-	//²âÊÔÓÃÀı
+	//æµ‹è¯•ç”¨ä¾‹
 	static {
 		servletMappinglist
 		.add(new ServletMapping("test1", "/t1", 
@@ -22,11 +24,12 @@ public class ServletMappingConfig {
 		servletMappinglist
 		.add(new ServletMapping("test2", "/t2", 
 				"com.kaikai.MyTomcat.testServlet.TestTWOservlet"));
+		SrcservletMappinglist.add(new ServletMapping("test4", "/t4", new MySrcServlet("æµ‹è¯•é™æ€èµ„æº")));
 		
 	}
-	//Í¨¹ı¶ÁÈ¡ĞŞ¸ÄÅäÖÃÎÄ¼şµÃµ½servletÀàµÄÃû×Ö ÇëÇóurl Â·¾¶
+	//é€šè¿‡è¯»å–ä¿®æ”¹é…ç½®æ–‡ä»¶å¾—åˆ°servletç±»çš„åå­— è¯·æ±‚url è·¯å¾„
 	
-	//Í¨¹ıÉ¨Ãè×¢½âµÃµ½servletÀàµÄÃû×Ö ÇëÇóurl Â·¾¶
+	//é€šè¿‡æ‰«ææ³¨è§£å¾—åˆ°servletç±»çš„åå­— è¯·æ±‚url è·¯å¾„
 	static {
 		try {
 			ScanPackageUtil.setServletMappingByAnnotation(servletMappinglist);

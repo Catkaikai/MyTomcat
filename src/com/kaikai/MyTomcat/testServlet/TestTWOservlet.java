@@ -7,16 +7,16 @@ import com.kaikai.MyTomcat.pack.MyResponse;
 import com.kaikai.MyTomcat.pack.MyServlet;
 
 /** 
-* @author ×÷Õß kaikai: 
-* @version ´´½¨Ê±¼ä£º2020Äê7ÔÂ15ÈÕ ÏÂÎç3:33:56 
-* @Description ÀàËµÃ÷one²âÊÔÀà ÊµÏÖMyservlet
+* @author ä½œè€… kaikai: 
+* @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´7æœˆ15æ—¥ ä¸‹åˆ3:33:56 
+* @Description ç±»è¯´æ˜oneæµ‹è¯•ç±» å®ç°Myservlet
 */
 public class TestTWOservlet extends MyServlet {
 
 	@Override
 	public void doGet(MyRequest myRequest, MyResponse myResponse) {
 		try {
-			myResponse.write("²âÊÔ¶ş get·½Ê½");
+			myResponse.write("æµ‹è¯•äºŒ getæ–¹å¼");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -26,7 +26,7 @@ public class TestTWOservlet extends MyServlet {
 	@Override
 	public void doPost(MyRequest myRequest, MyResponse myResponse) {
 		try {
-			myResponse.write("²âÊÔ¶ş post·½Ê½");
+			myResponse.write("æµ‹è¯•äºŒ postæ–¹å¼");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

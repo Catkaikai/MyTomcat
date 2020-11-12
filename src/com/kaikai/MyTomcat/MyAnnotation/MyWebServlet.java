@@ -7,9 +7,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /** 
- * @author ×÷Õß kaikai: 
- * @version ´´½¨Ê±¼ä£º2020Äê8ÔÂ13ÈÕ ÏÂÎç6:03:07 
- * @Description ÀàËµÃ÷ 
+ * @author ä½œè€… kaikai: 
+ * @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´8æœˆ13æ—¥ ä¸‹åˆ6:03:07 
+ * @Description ç±»è¯´æ˜ 
  */
 @Documented
 @Retention(RUNTIME)

@@ -1,20 +1,20 @@
 package com.kaikai.MyTomcat.pack;
 /** 
-* @author ×÷Õß kaikai: 
-* @version ´´½¨Ê±¼ä£º2020Äê7ÔÂ15ÈÕ ÏÂÎç2:15:40 
-* @Description ÀàËµÃ÷  ServletÇëÇó´¦Àí»ùÀà
+* @author ä½œè€… kaikai: 
+* @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´7æœˆ15æ—¥ ä¸‹åˆ2:15:40 
+* @Description ç±»è¯´æ˜  Servletè¯·æ±‚å¤„ç†åŸºç±»
 */
 public abstract class MyServlet {
 	
 	/**
-	 * TomcatÊÇÂú×ãServlet¹æ·¶µÄÈİÆ÷£¬ÄÇÃ´×ÔÈ»TomcatĞèÒªÌá¹©API¡£ÕâÀï¿´µ½ÁËServlet³£¼ûµÄdoGet/doPost/service·½·¨¡£
+	 * Tomcatæ˜¯æ»¡è¶³Servletè§„èŒƒçš„å®¹å™¨ï¼Œé‚£ä¹ˆè‡ªç„¶Tomcatéœ€è¦æä¾›APIã€‚è¿™é‡Œçœ‹åˆ°äº†Servletå¸¸è§çš„doGet/doPost/serviceæ–¹æ³•ã€‚
 	 * @param myRequest
 	 * @param myResponse
 	 */
 	public abstract void doGet(MyRequest myRequest,MyResponse myResponse);
 	public abstract void doPost(MyRequest myRequest,MyResponse myResponse);
 	/**
-	 * ¸¸ÀàMyServletµÄservice·½·¨»á°ï×ÓÀàÇø·ÖÇëÇó·½·¨
+	 * çˆ¶ç±»MyServletçš„serviceæ–¹æ³•ä¼šå¸®å­ç±»åŒºåˆ†è¯·æ±‚æ–¹æ³•
 	 * @param myRequest
 	 * @param myResponse
 	 */

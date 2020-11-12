@@ -14,23 +14,23 @@ import com.kaikai.MyTomcat.pack.MyServlet;
 import com.kaikai.MyTomcat.pack.ServletMapping;
 
 /** 
-* @author ×÷Õß kaikai: 
-* @version ´´½¨Ê±¼ä£º2020Äê8ÔÂ13ÈÕ ÏÂÎç4:22:12 
-* @Description ÀàËµÃ÷ É¨Ãèµ±Ç°jar°üÒÔ¼°ÆäËûjar°üÏÂÎÄ¼şµÄ¹¤¾ßÀà
+* @author ä½œè€… kaikai: 
+* @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´8æœˆ13æ—¥ ä¸‹åˆ4:22:12 
+* @Description ç±»è¯´æ˜ æ‰«æå½“å‰jaråŒ…ä»¥åŠå…¶ä»–jaråŒ…ä¸‹æ–‡ä»¶çš„å·¥å…·ç±»
 */
 public class ScanPackageUtil {
 	/**
-	 * ´ÓÆäËûjar°ü¶ÁÈ¡ËùÓĞµÄclassÎÄ¼şÃû
+	 * ä»å…¶ä»–jaråŒ…è¯»å–æ‰€æœ‰çš„classæ–‡ä»¶å
 	 */
 	@SuppressWarnings("unused")
 	private static List<String> getClassNameFrom(String jarName) {
 		List<String> fileList = new ArrayList<String>();
 		try {
 			JarFile jarFile = new JarFile(new File(jarName));
-			Enumeration<JarEntry> en = jarFile.entries(); // Ã¶¾Ù»ñµÃJARÎÄ¼şÄÚµÄÊµÌå,¼´Ïà¶ÔÂ·¾¶
+			Enumeration<JarEntry> en = jarFile.entries(); // æšä¸¾è·å¾—JARæ–‡ä»¶å†…çš„å®ä½“,å³ç›¸å¯¹è·¯å¾„
 			while (en.hasMoreElements()) {
 				String name1 = en.nextElement().getName();
-				if (!name1.endsWith(".class")) {// ²»ÊÇclassÎÄ¼ş
+				if (!name1.endsWith(".class")) {// ä¸æ˜¯classæ–‡ä»¶
 					continue;
 				}
 				String name2 = name1.substring(0, name1.lastIndexOf(".class"));
@@ -44,13 +44,13 @@ public class ScanPackageUtil {
 	}
 
 	/**
-	 * µİ¹é²éÕÒÖ¸¶¨Ä¿Â¼ÏÂµÄÀàÎÄ¼şµÄÈ«Â·¾¶
-	 * µİ¹é±éÀúµÃµ½ËùÓĞµÄ.javaÎÄ¼şÂ·¾¶
-	 * @param baseFile ²éÕÒÎÄ¼şµÄÈë¿Ú
-	 * @param fileList ±£´æÒÑ¾­²éÕÒµ½µÄÎÄ¼ş¼¯ºÏ
+	 * é€’å½’æŸ¥æ‰¾æŒ‡å®šç›®å½•ä¸‹çš„ç±»æ–‡ä»¶çš„å…¨è·¯å¾„
+	 * é€’å½’éå†å¾—åˆ°æ‰€æœ‰çš„.javaæ–‡ä»¶è·¯å¾„
+	 * @param baseFile æŸ¥æ‰¾æ–‡ä»¶çš„å…¥å£
+	 * @param fileList ä¿å­˜å·²ç»æŸ¥æ‰¾åˆ°çš„æ–‡ä»¶é›†åˆ
 	 */
 	public static void getSubFileNameList(File baseFile, List<String> fileList) {
-		//µİ¹é±éÀúµÃµ½ËùÓĞµÄ.javaÎÄ¼şÂ·¾¶
+		//é€’å½’éå†å¾—åˆ°æ‰€æœ‰çš„.javaæ–‡ä»¶è·¯å¾„
 		if (baseFile.isDirectory()) {
 			File[] files = baseFile.listFiles();
 			for (File tmpFile : files) {
@@ -58,7 +58,7 @@ public class ScanPackageUtil {
 			}
 		}
 		String path = baseFile.getPath();
-		//Â·¾¶×ªÈ«ÏŞ¶¨Ãû
+		//è·¯å¾„è½¬å…¨é™å®šå
 		if (path.endsWith(".java")) {
 			String name1 = path.substring(path.indexOf("src") + 4, path.length());
 			String name2 = name1.replaceAll("\\\\", ".");
@@ -67,17 +67,17 @@ public class ScanPackageUtil {
 		}
 	}
 	/**
-	 *  ÅĞ¶ÏÒ»¸öÀàÊÇ·ñ¼Ì³ĞÄ³¸ö¸¸Àà»òÊµÏÖÄ³¸ö½Ó¿Ú
+	 *  åˆ¤æ–­ä¸€ä¸ªç±»æ˜¯å¦ç»§æ‰¿æŸä¸ªçˆ¶ç±»æˆ–å®ç°æŸä¸ªæ¥å£
 	 */
 	public static boolean isChildClass(String className,Class<MyServlet> parentClazz){
 		if(className == null) return false;		
 		Class<?> clazz = null;
 		try {
 			clazz = Class.forName(className);
-			if(Modifier.isAbstract(clazz.getModifiers())){//³éÏóÀàºöÂÔ
+			if(Modifier.isAbstract(clazz.getModifiers())){//æŠ½è±¡ç±»å¿½ç•¥
 				return false;
 			}
-			if(Modifier.isInterface(clazz.getModifiers())){//½Ó¿ÚºöÂÔ
+			if(Modifier.isInterface(clazz.getModifiers())){//æ¥å£å¿½ç•¥
 				return false;
 			}
 		} catch (Exception e) {
@@ -88,16 +88,16 @@ public class ScanPackageUtil {
 	}
 
 	/**
-	 * ½«±¾jar°üÍ¨¹ı×¢½âÉùÃ÷µÄMyServlet×ÓÀàÌí¼Óµ½¼¯ºÏÖĞ
+	 * å°†æœ¬jaråŒ…é€šè¿‡æ³¨è§£å£°æ˜çš„MyServletå­ç±»æ·»åŠ åˆ°é›†åˆä¸­
 	 * @param servletMappinglist
 	 * @throws ClassNotFoundException 
 	 */
 	public static void setServletMappingByAnnotation(List<ServletMapping> servletMappinglist) throws ClassNotFoundException{
 		List<String> fileList=new ArrayList<>();
 		File baseFile=new File("src");
-		ScanPackageUtil.getSubFileNameList(baseFile,fileList);//É¨ÃèµÃµ½ËùÓĞµÄÀà
+		ScanPackageUtil.getSubFileNameList(baseFile,fileList);//æ‰«æå¾—åˆ°æ‰€æœ‰çš„ç±»
 		for(String name:fileList){
-			//µÃµ½±»×¢½âµÄ×ÓÀà
+			//å¾—åˆ°è¢«æ³¨è§£çš„å­ç±»
 			if(ScanPackageUtil.isChildClass(name, MyServlet.class)) {
 				Class<?> myservlet = Class.forName(name);
 				if(myservlet.isAnnotationPresent(MyWebServlet.class)) {

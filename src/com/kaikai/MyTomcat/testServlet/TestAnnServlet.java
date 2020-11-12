@@ -8,16 +8,16 @@ import com.kaikai.MyTomcat.pack.MyResponse;
 import com.kaikai.MyTomcat.pack.MyServlet;
 
 /** 
-* @author ×÷Õß kaikai: 
-* @version ´´½¨Ê±¼ä£º2020Äê8ÔÂ13ÈÕ ÏÂÎç9:50:26 
-* @Description ÀàËµÃ÷ 
+* @author ä½œè€… kaikai: 
+* @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´8æœˆ13æ—¥ ä¸‹åˆ9:50:26 
+* @Description ç±»è¯´æ˜ 
 */
 @MyWebServlet(url="/t3")
 public class TestAnnServlet extends MyServlet {
 	@Override
 	public void doGet(MyRequest myRequest, MyResponse myResponse) {
 		try {
-			myResponse.write("²âÊÔ×¢½â get·½Ê½");
+			myResponse.write("æµ‹è¯•æ³¨è§£ getæ–¹å¼");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -26,7 +26,7 @@ public class TestAnnServlet extends MyServlet {
 	@Override
 	public void doPost(MyRequest myRequest, MyResponse myResponse) {
 		try {
-			myResponse.write("²âÊÔ×¢½â post·½Ê½");
+			myResponse.write("æµ‹è¯•æ³¨è§£ postæ–¹å¼");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

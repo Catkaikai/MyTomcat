@@ -1,8 +1,8 @@
 package com.kaikai.MyTomcat.pack;
 /** 
-* @author ×÷Õß kaikai: 
-* @version ´´½¨Ê±¼ä£º2020Äê7ÔÂ15ÈÕ ÏÂÎç1:30:30 
-* @Description ÀàËµÃ÷ ·â×°ÏìÓ¦¶ÔÏó
+* @author ä½œè€… kaikai: 
+* @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´7æœˆ15æ—¥ ä¸‹åˆ1:30:30 
+* @Description ç±»è¯´æ˜ å°è£…å“åº”å¯¹è±¡
 */
 
 import java.io.IOException;
@@ -15,27 +15,24 @@ public class MyResponse {
 	}
 	
 	public void write(String content) throws IOException {
-		//ÏìÓ¦±¨ÎÄÑùÀı
+		//å“åº”æŠ¥æ–‡æ ·ä¾‹
 //		HTTP/1.1 200 
 //		Content-Type: application/json
 //		Transfer-Encoding: chunked
 //		Date: Wed, 15 Jul 2020 04:35:08 GMT
 //		Keep-Alive: timeout=60
 //		Connection: keep-alive
-		//ÉèÖÃÏìÓ¦Í·±àÂë
+		//è®¾ç½®å“åº”å¤´ç¼–ç 
 		StringBuffer httpResponse = new StringBuffer();
 		httpResponse.append("HTTP/1.1 200 OK")
 					.append("\n")
-					.append("Content-Type: text/html")
+					.append("Content-Type: text/html;charset=UTF-8")
 					.append("\n")
 					.append("\r\n")
-					.append("<!DOCTYPE html>")
-					.append("<html><body>")
-					.append(content)
-					.append("</boy></html>");
-		//½«ÏìÓ¦Í·Ğ´ÈëÊä³öÁ÷ »ùÓÚHTTPĞ­Òé
+					.append(content);
+		//å°†å“åº”å¤´å†™å…¥è¾“å‡ºæµ åŸºäºHTTPåè®®
 		outputStream.write(httpResponse.toString().getBytes()); 
-		System.out.println(this+"ÒÑ¾­ÏìÓ¦ä¯ÀÀÆ÷µÄÇëÇó");
+		System.out.println(this+"å·²ç»å“åº”æµè§ˆå™¨çš„è¯·æ±‚");
 		outputStream.close();
 		
 	}

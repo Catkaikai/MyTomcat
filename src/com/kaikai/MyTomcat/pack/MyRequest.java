@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * @author ×÷Õß kaikai:
- * @version ´´½¨Ê±¼ä£º2020Äê7ÔÂ15ÈÕ ÏÂÎç12:41:56
- * @Description ÀàËµÃ÷ ·â×°ÇëÇó¶ÔÏó
+ * @author ä½œè€… kaikai:
+ * @version åˆ›å»ºæ—¶é—´ï¼š2020å¹´7æœˆ15æ—¥ ä¸‹åˆ12:41:56
+ * @Description ç±»è¯´æ˜ å°è£…è¯·æ±‚å¯¹è±¡
  */
 public class MyRequest {
 	private String url;
@@ -14,16 +14,16 @@ public class MyRequest {
 
 	
 	public MyRequest(InputStream inputStream) throws IOException {
-		//System.out.println("Request±»´´½¨");
+		//System.out.println("Requestè¢«åˆ›å»º");
 		String httpRequest = "";
 		byte[] httpRequsestbytes = new byte[1024];
 		int length = 0;
-		// ½«ÊäÈëÁ÷ÀïµÄÄÚÈİ¶ÁÈ¡µ½byteÊı×éÖĞ
+		// å°†è¾“å…¥æµé‡Œçš„å†…å®¹è¯»å–åˆ°byteæ•°ç»„ä¸­
 		if ((length = inputStream.read(httpRequsestbytes)) > 0) {
-			// Í¨¹ıStringµÄ¹¹Ôì·½·¨½«byteÊı×éÀï´æ´¢µÄÊı¾İ×ª»»³É×Ö·û´®
+			// é€šè¿‡Stringçš„æ„é€ æ–¹æ³•å°†byteæ•°ç»„é‡Œå­˜å‚¨çš„æ•°æ®è½¬æ¢æˆå­—ç¬¦ä¸²
 			httpRequest = new String(httpRequsestbytes, 0, length);
 		}
-		// ÇëÇóÍ·Àı×Ó
+		// è¯·æ±‚å¤´ä¾‹å­
 //		GET /getData HTTP/1.1
 //		Host: localhost:8089
 //		User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101 Firefox/78.0
@@ -34,13 +34,13 @@ public class MyRequest {
 //		Upgrade-Insecure-Requests: 1
 //		Cache-Control: max-age=0
 
-		// ÌáÈ¡Ïà¹Ø×Ö·û
+		// æå–ç›¸å…³å­—ç¬¦
 		String httpHead = httpRequest.split("\n")[0];
 		//System.out.println(httpHead);
 		this.method=httpHead.split(" ")[0];
 		this.url=httpHead.split(" ")[1];
 	}
-	//getter·½·¨
+	//getteræ–¹æ³•
 
 	public String getUrl() {
 		return url;
