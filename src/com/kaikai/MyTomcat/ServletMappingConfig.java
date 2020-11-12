@@ -13,6 +13,7 @@ import com.kaikai.MyTomcat.utils.ScanPackageUtil;
 public class ServletMappingConfig {
 	public static List<ServletMapping> servletMappinglist = new ArrayList<>();
 	
+	//²âÊÔÓÃÀı
 	static {
 		servletMappinglist
 		.add(new ServletMapping("test1", "/t1", 

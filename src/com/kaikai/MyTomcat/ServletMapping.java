@@ -2,14 +2,20 @@ package com.kaikai.MyTomcat;
 /** 
 * @author 作者 kaikai: 
 * @version 创建时间：2020年7月15日 下午3:44:01 
-* @Description 类说明 serletmapping实体类 相当于为了给请求导航通过tomcat统一指挥请求而需要的信息
+* @Description 类说明  serletmapping实体类 分发请求需要的信息的封装
 */
 public class ServletMapping {
-	//servlet的名字
+	/**
+	 * servlet的名字
+	 */
 	private String servletName;
-	//在浏览器地址最后的访问url 即ip:port/url
+	/**
+	 * 在浏览器地址最后的访问url 即ip:port/url
+	 */
 	private String url;
-	//该Servlet的位置用于反射
+	/**
+	 * 该Servlet的全限定名用于反射
+	 */
 	private String clazz;
 	public String getServletName() {
 		return servletName;
