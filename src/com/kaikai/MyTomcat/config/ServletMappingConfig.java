@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.kaikai.MyTomcat.pack.MySrcServlet;
 import com.kaikai.MyTomcat.pack.ServletMapping;
+import com.kaikai.MyTomcat.utils.ScanFolderUtil;
 import com.kaikai.MyTomcat.utils.ScanPackageUtil;
 
 public class ServletMappingConfig {
@@ -33,6 +34,7 @@ public class ServletMappingConfig {
 	static {
 		try {
 			ScanPackageUtil.setServletMappingByAnnotation(servletMappinglist);
+			ScanFolderUtil.setSrcServletMappingBypath(propertiesConfig.webappspath, SrcservletMappinglist);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}

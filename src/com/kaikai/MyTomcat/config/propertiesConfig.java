@@ -18,6 +18,11 @@ public class propertiesConfig {
 	 * 服务运行的端口
 	 */
 	public static Integer port;
+	/**
+	 * 默认静态资源文件的存储目录
+	 */
+	public static String webappspath;
+	
 
 	static {
 		Properties properties = new Properties();
@@ -41,12 +46,14 @@ public class propertiesConfig {
 			in = propertiesConfig.class.getClassLoader().getResourceAsStream("config.properties");
 		}
 		try {
+			//加载配置文件
 			properties.load(in);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		port = new Integer(properties.getProperty("port"));
-
+		webappspath=properties.getProperty("webappspath");
+		System.out.println("加载的配置为-> "+"port:"+port+","+"webappspath:"+webappspath);
 	}
 
 }

@@ -3,13 +3,11 @@ package com.kaikai.MyTomcat;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.sound.sampled.Port;
-
+import java.util.concurrent.ConcurrentHashMap;
 import com.kaikai.MyTomcat.config.ServletMappingConfig;
 import com.kaikai.MyTomcat.config.propertiesConfig;
 import com.kaikai.MyTomcat.pack.MyRequest;
@@ -17,6 +15,8 @@ import com.kaikai.MyTomcat.pack.MyResponse;
 import com.kaikai.MyTomcat.pack.MyServlet;
 import com.kaikai.MyTomcat.pack.MySrcServlet;
 import com.kaikai.MyTomcat.pack.ServletMapping;
+import com.kaikai.MyTomcat.utils.ResourceListener;
+import com.kaikai.MyTomcat.utils.ScanFolderUtil;
 
 /** 
  * @author 作者 kaikai: 
@@ -24,12 +24,20 @@ import com.kaikai.MyTomcat.pack.ServletMapping;
  * @Description 类说明 
  */
 public class MyTomcat {
+	
+	/**
+	 * webapps目录的改动次数
+	 */
+	public static int count=0;
 	/**
 	 * 默认端口8080
-	 */
+	 */	
 	private int port = 8080;
-	public static HashMap<String, String> urlServerletMap = new HashMap<>();
-	public static HashMap<String, MySrcServlet> urlSrcServerletMap = new HashMap<>();
+	
+	public static ReferenceQueue<MyRequest> mrql=null;
+	public static ReferenceQueue<MyResponse> mrsl=null;
+	public static ConcurrentHashMap<String, String> urlServerletMap = new ConcurrentHashMap<>();
+	public static ConcurrentHashMap<String, MySrcServlet> urlSrcServerletMap = new ConcurrentHashMap<>();
 	/**
 	 * main方法
 	 * @param args
@@ -41,8 +49,14 @@ public class MyTomcat {
 	 * 一键启动
 	 */
 	public void start() {
+		try {
+			ResourceListener.addListener(propertiesConfig.webappspath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		initServerletMapping();
 		initProcess();
+		
 	}
 
 	/**
@@ -56,6 +70,8 @@ public class MyTomcat {
 		for (ServletMapping servletMapping : ServletMappingConfig.SrcservletMappinglist) {
 			urlSrcServerletMap.put(servletMapping.getUrl(), servletMapping.getMysrcservlet());
 		}
+		mrql=new ReferenceQueue<MyRequest>();
+		mrsl=new ReferenceQueue<MyResponse>();
 	}
 	/**
 	 * 创建socket并运行服务
@@ -69,11 +85,19 @@ public class MyTomcat {
 			// serverSocket未关闭则可一直创建socket
 			Socket socket = null;
 			while (true) {
+				if(count!=0) {
+					count=0;
+					reflesh();
+				}
+				//
 				socket = serverSocket.accept();
 				OutputStream outputStream = socket.getOutputStream();
 				InputStream inputStream = socket.getInputStream();
 				MyResponse myResponse = new MyResponse(outputStream);
 				MyRequest myRequest = new MyRequest(inputStream);
+				WeakReference<MyRequest> wmyreq=new WeakReference<MyRequest>(myRequest, mrql);
+				WeakReference<MyResponse> wmyresp=new WeakReference<MyResponse>(myResponse, mrsl);
+				
 				/**
 				 * 分发前做判断，看所请求的url是否在ServerletMap里面 to do :封装该判断逻辑为方法调用
 				 */
@@ -89,6 +113,8 @@ public class MyTomcat {
 					//System.out.println("非相关请求未参与分发");
 				}
 				socket.close();
+				myRequest=null;
+				myResponse=null;
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -120,6 +146,7 @@ public class MyTomcat {
 			MyServlet myServlet = myservletClass.newInstance();
 			// 通过调用父类MyServlet的service方法会帮子类决定doGet还是doPost
 			myServlet.service(myRequest, myResponse);
+			myServlet=null;
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (InstantiationException e) {
@@ -129,6 +156,23 @@ public class MyTomcat {
 		}
 	}
 
+	public static void getCall(long time) {
+		count++;
+	}
+	
+	public static void reflesh() {
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ScanFolderUtil.setSrcServletMappingBypath(propertiesConfig.webappspath, ServletMappingConfig.SrcservletMappinglist);
+		for (ServletMapping servletMapping : ServletMappingConfig.SrcservletMappinglist) {
+			urlSrcServerletMap.put(servletMapping.getUrl(), servletMapping.getMysrcservlet());
+		}
+	}
+	
 	/**
 	 * 无参构造器
 	 */
