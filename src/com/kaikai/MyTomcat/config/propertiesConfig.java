@@ -28,9 +28,9 @@ public class propertiesConfig {
 		Properties properties = new Properties();
 		InputStream in = null;
 
-		// 优先从项目同级路径获取连接信息
-		String confPath = System.getProperty("user.dir");
-		confPath = confPath + File.separator + "config\\config.properties";
+		// 优先从项目同级路径获取配置信息
+		String confPatho = System.getProperty("user.dir");
+		String confPath = confPatho + File.separator + "config\\config.properties";
 		File file = new File(confPath);
 		if (file.exists()) {
 			System.out.println("配置文件路径---->>" + confPath);
@@ -53,6 +53,9 @@ public class propertiesConfig {
 		}
 		port = new Integer(properties.getProperty("port"));
 		webappspath=properties.getProperty("webappspath");
+		if(webappspath==null) {
+			webappspath=confPatho+File.separator+"webapps";
+		}
 		System.out.println("加载的配置为-> "+"port:"+port+","+"webappspath:"+webappspath);
 	}
 

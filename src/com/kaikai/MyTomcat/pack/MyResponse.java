@@ -32,7 +32,7 @@ public class MyResponse {
 					.append(content);
 		//将响应头写入输出流 基于HTTP协议
 		outputStream.write(httpResponse.toString().getBytes()); 
-		System.out.println(this+"已经响应浏览器的请求");
+		//System.out.println(this+"已经响应浏览器的请求");
 		outputStream.close();
 		
 	}

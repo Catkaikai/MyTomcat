@@ -43,6 +43,7 @@ public class MyTomcat {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		System.out.println("MyTomcat is start...");
 		new MyTomcat().setPort(propertiesConfig.port).start();
 	}
 	/**
@@ -63,7 +64,7 @@ public class MyTomcat {
 	 * 加载所有的ServerletMapping到MyTomcat里的hashmap里
 	 */
 	public void initServerletMapping() {
-		System.out.println("1.读取并初始化ServerletMapping集合");
+		//System.out.println("1.读取并初始化ServerletMapping集合");
 		for (ServletMapping servletMapping : ServletMappingConfig.servletMappinglist) {
 			urlServerletMap.put(servletMapping.getUrl(), servletMapping.getClazz());
 		}
@@ -80,8 +81,8 @@ public class MyTomcat {
 		ServerSocket serverSocket = null;
 		try {
 			serverSocket = new ServerSocket(port);
-			System.out.println("MyTomcat is start...");
-			System.out.println("2.以端口创建serverSocket");
+			System.out.println("MyTomcat is started");
+			//System.out.println("2.以端口创建serverSocket");
 			// serverSocket未关闭则可一直创建socket
 			Socket socket = null;
 			while (true) {
@@ -161,12 +162,12 @@ public class MyTomcat {
 	}
 	
 	public static void reflesh() {
-		try {
-			Thread.sleep(3000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(3000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		ScanFolderUtil.setSrcServletMappingBypath(propertiesConfig.webappspath, ServletMappingConfig.SrcservletMappinglist);
 		for (ServletMapping servletMapping : ServletMappingConfig.SrcservletMappinglist) {
 			urlSrcServerletMap.put(servletMapping.getUrl(), servletMapping.getMysrcservlet());
